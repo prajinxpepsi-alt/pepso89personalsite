@@ -1,46 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url("pepso89webgif.gif") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Headings */
+    h1 {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: rgb(0, 255, 234);
+      font-size: 50px;
+      margin: 0.5em 0;
+    }
+
+    h2 {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: rgb(0, 255, 234);
+      margin: 0.5em 0;
+    }
+
+    /* Navigation bar */
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background-color: aqua;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 20px;
+    }
+
+    li a:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    li h1 {
+      display: block;
+      color: white;
+      font-size: 24px;
+      margin: 0;
+      padding: 14px 16px;
+    }
+
+    a {
+      color: rgb(4, 177, 240);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 30px;
+    }
+
+    /* Main content box */
+    .about-box {
+      border: 5px solid rgb(11, 101, 179);
+      display: inline-block;
+      width: 90%;
+      max-width: 1000px;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      box-sizing: border-box;
+      color: white;
+      margin: 40px auto;
+      text-align: center;
+    }
+
+    /* Contact form styling */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+      align-items: center;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 90%;
+      max-width: 600px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button[type="submit"] {
+      background-color: rgb(0, 255, 234);
+      color: black;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: rgb(0, 200, 180);
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
-    <center>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            </ul>
+  <center>
+    <ul>
+      <li><a href='/'>Home</a></li>
+      <li><a href='/news'>News</a></li>
+      <li><a href='/contact'>Contact</a></li>
+      <li><a href='/projects'>Projects</a></li>
+    </ul>
 
-            <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
 
+    <span class="about-box">
+      <form action="https://api.web3forms.com/submit" method="POST">
 
+        <!-- Replace with your Access Key -->
+        <input type="hidden" name="access_key" value="7e32ef14-9dfa-452f-bf3b-608541d9e464">
 
-        <span class="about-box">
-           <form action="https://api.web3forms.com/submit" method="POST">
+        <!-- Form Inputs -->
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
 
-    <!-- Replace with your Access Key -->
-    <input type="hidden" name="access_key" value="7e32ef14-9dfa-452f-bf3b-608541d9e464
-">
+        <!-- Honeypot Spam Protection -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-    <!-- Form Inputs. Each input must have a name="" attribute -->
-    <input type="text" name="name" required>
-    <input type="email" name="email" required>
-    <textarea name="message" required></textarea>
+        <!-- Optional Redirect -->
+        <!-- <input type="hidden" name="redirect" value="https://mywebsite.com/thanks.html"> -->
 
-    <!-- Honeypot Spam Protection -->
-    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+        <button type="submit">Submit Form</button>
 
-    <!-- Custom Confirmation / Success Page -->
-    <!-- <input type="hidden" name="redirect" value="https://mywebsite.com/thanks.html"> -->
-
-    <button type="submit">Submit Form</button>
-
-</form>
-        </span>
-    </center>
+      </form>
+    </span>
+  </center>
 </body>
 </html>
