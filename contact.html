@@ -12,21 +12,11 @@
       background-size: cover;
     }
 
-    /* Headings */
-    h1 {
+    h1, h2 {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: rgb(0, 255, 234);
-      font-size: 50px;
-      margin: 0.5em 0;
     }
 
-    h2 {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: rgb(0, 255, 234);
-      margin: 0.5em 0;
-    }
-
-    /* Navigation bar */
     ul {
       list-style-type: none;
       margin: 0;
@@ -43,29 +33,14 @@
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     li a:hover {
       background-color: rgba(0, 0, 0, 0.2);
     }
 
-    li h1 {
-      display: block;
-      color: white;
-      font-size: 24px;
-      margin: 0;
-      padding: 14px 16px;
-    }
-
-    a {
-      color: rgb(4, 177, 240);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 30px;
-    }
-
-    /* Main content box */
     .about-box {
       border: 5px solid rgb(11, 101, 179);
       display: inline-block;
@@ -79,7 +54,6 @@
       text-align: center;
     }
 
-    /* Contact form styling */
     form {
       display: flex;
       flex-direction: column;
@@ -97,10 +71,9 @@
       border-radius: 8px;
       border: none;
       font-size: 16px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: rgba(255, 255, 255, 0.1);
       color: white;
-      transition: 0.3s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     input[type="text"]:focus,
@@ -116,7 +89,7 @@
       resize: vertical;
     }
 
-    button[type="submit"] {
+    button {
       background-color: rgb(0, 255, 234);
       color: black;
       font-weight: bold;
@@ -128,85 +101,115 @@
       transition: background-color 0.3s ease, transform 0.2s;
     }
 
-    button[type="submit"]:hover {
+    button:hover {
       background-color: rgb(0, 200, 180);
       transform: scale(1.05);
+    }
+
+    .contact-method {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      font-size: 18px;
+    }
+
+    .contact-method label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      accent-color: aqua;
+      transform: scale(1.3);
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
   <center>
     <ul>
-      <li><a href='/'>Home</a></li>
-      <li><a href='/news'>News</a></li>
-      <li><a href='/contact'>Contact</a></li>
-      <li><a href='/projects'>Projects</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/news">News</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/projects">Projects</a></li>
     </ul>
 
     <br><br><br><br><br><br>
 
-    <span class="about-box">
-      <form action="https://api.web3forms.com/submit" method="POST">
+    <div class="about-box">
+      <h2>Choose Contact Method</h2>
+      <div class="contact-method">
+        <label><input type="radio" name="method" value="email" checked onchange="toggleForms()"> Email</label>
+        <label><input type="radio" name="method" value="discord" onchange="toggleForms()"> Discord</label>
+      </div>
 
-        <!-- Replace with your Access Key -->
+      <!-- Email Form -->
+      <form id="emailForm" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="7e32ef14-9dfa-452f-bf3b-608541d9e464">
-
-        <!-- Form Inputs -->
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" placeholder="Your Message" required></textarea>
-
-        <!-- Honeypot Spam Protection -->
-        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
-        <!-- Optional Redirect -->
-        <!-- <input type="hidden" name="redirect" value="https://mywebsite.com/thanks.html"> -->
-
-        <button type="submit">Submit Form</button>
-
+        <textarea name="message" placeholder="Your message" required></textarea>
+        <input type="checkbox" name="botcheck" class="hidden">
+        <button type="submit">Send via Email</button>
       </form>
-    </span>
+
+      <!-- Discord Form -->
+      <form id="discordForm" class="hidden">
+        <input type="text" id="discordName" placeholder="e.g., CoolDude#1234" required>
+        <textarea id="discordMessage" placeholder="Yo! What do you wanna say?" required></textarea>
+        <button type="button" onclick="sendToDiscord()">Send via Discord</button>
+        <p id="discordResult"></p>
+      </form>
+    </div>
   </center>
 
   <script>
-const form = document.getElementById('form');
-const result = document.getElementById('result');
+    function toggleForms() {
+      const method = document.querySelector('input[name="method"]:checked').value;
+      document.getElementById("emailForm").style.display = method === "email" ? "flex" : "none";
+      document.getElementById("discordForm").style.display = method === "discord" ? "flex" : "none";
+    }
 
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const object = Object.fromEntries(formData);
-  const json = JSON.stringify(object);
-  result.innerHTML = "Please wait..."
+    function sendToDiscord() {
+      const webhookURL = "https://discord.com/api/webhooks/1357406020837834752/hybKemWoXdxnFYF6MRPsrnAql4C3w99dr7zIoqmPeNnu_BMn-yPJZBUl3q267C0_OIMW"; // Replace with your real webhook
+      const name = document.getElementById("discordName").value;
+      const message = document.getElementById("discordMessage").value;
+      const resultBox = document.getElementById("discordResult");
 
-    fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: json
-        })
-        .then(async (response) => {
-            let json = await response.json();
-            if (response.status == 200) {
-                result.innerHTML = "Form submitted successfully";
-            } else {
-                console.log(response);
-                result.innerHTML = json.message;
-            }
-        })
-        .catch(error => {
-            console.log(error);
-            result.innerHTML = "Something went wrong!";
-        })
-        .then(function() {
-            form.reset();
-            setTimeout(() => {
-                result.style.display = "none";
-            }, 3000);
-        });
-});
-</script>
+      const payload = {
+        content: `**New Message from ${name}**\n${message}`
+      };
+
+      resultBox.innerText = "Sending...";
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        if (response.ok) {
+          resultBox.innerText = "Message sent to Discord!";
+        } else {
+          resultBox.innerText = "Failed to send message.";
+        }
+      })
+      .catch(error => {
+        resultBox.innerText = "Error sending message.";
+        console.error(error);
+      });
+    }
+  </script>
 </body>
 </html>
