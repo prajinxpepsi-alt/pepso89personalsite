@@ -76,7 +76,17 @@ a {
    border-radius: 10px;
 }
 
-.skills-container h1 {color: cyan;}
+.skills-container {
+  display: flex;              
+  gap: 20px;                  
+}
+
+.skills-container h2 {
+  color: cyan;
+  background-color: white;
+  padding: 10px;              
+  margin: 0;                  
+}
 
 .skills-container h2 {color: cyan; background-color: white; }
 
