@@ -78,6 +78,6 @@ a {
 
 .skills-container h1 {color: cyan;}
 
-.skills-container h2 {color: cyan; background-color: grey; }
+.skills-container h2 {color: cyan; background-color: white; }
 
 .skills-container h2:hover {transform:scale(1.1);}
